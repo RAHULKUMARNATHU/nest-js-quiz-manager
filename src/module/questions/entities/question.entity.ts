@@ -1,4 +1,11 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Quiz } from 'src/module/quiz/entities/quiz.entity';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('questions')
 export class Question extends BaseEntity {
@@ -9,4 +16,7 @@ export class Question extends BaseEntity {
     type: 'varchar',
   })
   question: string;
+
+  @ManyToOne(() => Quiz, (quiz) => quiz.questions)
+  quiz: Quiz;
 }
