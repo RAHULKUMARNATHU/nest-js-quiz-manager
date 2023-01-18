@@ -5,8 +5,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Quiz } from './entities/quiz.entity';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Quiz])],
-  controllers: [QuizController],
-  providers: [QuizService]
+  imports: [TypeOrmModule.forFeature([Quiz]) ],
+  controllers: [QuizController ],
+  providers: [QuizService ],
+  // exports: [QuizService],
 })
 export class QuizModule {}

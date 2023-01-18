@@ -14,12 +14,19 @@ export class QuizService {
     // return 'This action adds a new quiz';
   }
 
+  // getQuizById(id: number) {
+  //   //  return await this.QuizRepo.findOne({where:{id}});
+  //   console.log('here');
+  // }
   findAll() {
     return `This action returns all quiz`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} quiz`;
+  async findOne(id: number) {
+    return await this.QuizRepo.findOne({
+      where: { id },
+      relations: ['questions'],
+    });
   }
 
   update(id: number, updateQuizDto: UpdateQuizDto) {

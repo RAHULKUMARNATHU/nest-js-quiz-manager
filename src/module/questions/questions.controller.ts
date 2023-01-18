@@ -8,19 +8,33 @@ import {
   Delete,
   ValidationPipe,
   UsePipes,
+  forwardRef,
+  Inject,
 } from '@nestjs/common';
 import { QuestionsService } from './questions.service';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
+import { QuizService } from '../quiz/quiz.service';
 
 @Controller('questions')
 export class QuestionsController {
-  constructor(private readonly questionsService: QuestionsService) {}
+  constructor(
+    // @Inject(forwardRef(() => QuestionsService))
+    private quizService: QuizService,
+
+    private readonly questionsService: QuestionsService,
+
+  ) {}
 
   @UsePipes(ValidationPipe)
   @Post('/create-question')
   async create(@Body() createQuestionDto: CreateQuestionDto) {
-    return await this.questionsService.create(createQuestionDto);
+    console.log(createQuestionDto.quizId);
+
+    const quiz = await this.quizService.findOne(createQuestionDto.quizId );
+    // console.log(quiz);
+
+    return await this.questionsService.create(createQuestionDto, quiz);
   }
 
   @Get()
@@ -28,10 +42,10 @@ export class QuestionsController {
     return this.questionsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.questionsService.findOne(+id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.questionsService.findOne(+id);
+  // }
 
   @Patch(':id')
   update(

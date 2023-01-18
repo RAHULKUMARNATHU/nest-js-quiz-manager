@@ -7,9 +7,9 @@ import { QuizModule } from './module/quiz/quiz.module';
 import { QuestionsModule } from './module/questions/questions.module';
 
 @Module({
-  imports: [QuizModule , TypeOrmModule.forRoot(
+  imports: [ TypeOrmModule.forRoot(
     typeOrmConfig
-  ), QuestionsModule],
+  ), QuestionsModule , QuizModule],
   controllers: [AppController],
   providers: [AppService],
 })
