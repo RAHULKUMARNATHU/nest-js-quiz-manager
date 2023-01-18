@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { OptionsService } from './options.service';
 import { CreateOptionDto } from './dto/create-option.dto';
 import { UpdateOptionDto } from './dto/update-option.dto';
@@ -6,15 +16,20 @@ import { QuestionsService } from '../questions/questions.service';
 
 @Controller('question/options')
 export class OptionsController {
-  constructor(private readonly optionsService: OptionsService , 
-    private readonly questionService: QuestionsService) {}
+  constructor(
+    private readonly optionsService: OptionsService,
+    private readonly questionService: QuestionsService,
+  ) {}
 
   @UsePipes(ValidationPipe)
   @Post('/create')
-  saveOptionToQuestion(@Body() createOption: CreateOptionDto) {
-    
-    
-    // return this.optionsService.create(createOption , );
+  async saveOptionToQuestion(@Body() createOption: CreateOptionDto) {
+    const question = await this.questionService.findQuestionById(createOption.questionId);
+    if(question){
+
+    const option = await  this.optionsService.create(createOption , question);
+      return {question, createOption , option}
+    }
   }
 
   @Get()

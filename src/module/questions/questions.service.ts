@@ -30,9 +30,9 @@ export class QuestionsService {
     return `This action returns all questions`;
   }
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} question`;
-  // }
+  async findQuestionById(id: number) {
+   return await this.questionRepo.findOne({where :{id} , relations:['quiz' , 'options']} )
+  }
 
   update(id: number, updateQuestionDto: UpdateQuestionDto) {
     return `This action updates a #${id} question`;

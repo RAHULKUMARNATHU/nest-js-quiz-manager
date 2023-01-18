@@ -1,17 +1,28 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { CreateQuestionDto } from '../questions/dto/create-question.dto';
+import { Question } from '../questions/entities/question.entity';
 import { CreateOptionDto } from './dto/create-option.dto';
 import { UpdateOptionDto } from './dto/update-option.dto';
-import { Option } from './entities/option.entity';
+import { Options } from './entities/option.entity';
 
 @Injectable()
 export class OptionsService {
-  // constructor(@InjectRepository(Quiz) private QuizRepo: Repository<Quiz>) {}
+  constructor(
+    @InjectRepository(Options) private optionRepository: Repository<Options>,
+  ) {}
 
-  constructor(@InjectRepository(Option) private  optionRepository:Repository<Option>){}
-  create(createOptionDto: CreateOptionDto) {
-    return 'This action adds a new option';
+  async create(option: CreateOptionDto, question: Question) {
+    // return 'This action adds a new option';
+    const newOption = await this.optionRepository.save({
+      text: option.text,
+      isCorrect: option.isCorrect,
+    });
+
+    question.options = [newOption, ...question.options];
+    await question.save();
+    return newOption;
   }
 
   findAll() {

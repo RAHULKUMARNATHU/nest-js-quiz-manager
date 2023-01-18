@@ -8,9 +8,10 @@ import { QuizService } from '../quiz/quiz.service';
 import { QuizController } from '../quiz/quiz.controller';
 import { Quiz } from '../quiz/entities/quiz.entity';
 import { QuizModule } from '../quiz/quiz.module';
+import { Options } from '../options/entities/option.entity';
 
 @Module({
-  imports:[QuizModule ,TypeOrmModule.forFeature([Question , Quiz]) , ],
+  imports:[QuizModule ,TypeOrmModule.forFeature([Question , Quiz , Options ]) , ],
   controllers: [QuestionsController ],
   providers: [QuestionsService , QuizService],
   // exports:[QuestionsService , QuizService ]
