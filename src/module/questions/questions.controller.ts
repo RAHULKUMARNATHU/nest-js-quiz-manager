@@ -23,7 +23,6 @@ export class QuestionsController {
     private quizService: QuizService,
 
     private readonly questionsService: QuestionsService,
-
   ) {}
 
   @UsePipes(ValidationPipe)
@@ -31,10 +30,11 @@ export class QuestionsController {
   async create(@Body() createQuestionDto: CreateQuestionDto) {
     console.log(createQuestionDto.quizId);
 
-    const quiz = await this.quizService.findOne(createQuestionDto.quizId );
+    const quiz = await this.quizService.findOne(createQuestionDto.quizId);
     // console.log(quiz);
-
-    return await this.questionsService.create(createQuestionDto, quiz);
+    if (quiz) {
+      return await this.questionsService.create(createQuestionDto, quiz);
+    }
   }
 
   @Get()

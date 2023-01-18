@@ -23,10 +23,11 @@ export class QuizService {
   }
 
   async findOne(id: number) {
-    return await this.QuizRepo.findOne({
+    const quiz = await this.QuizRepo.findOne({
       where: { id },
       relations: ['questions'],
     });
+    return quiz;
   }
 
   update(id: number, updateQuizDto: UpdateQuizDto) {
