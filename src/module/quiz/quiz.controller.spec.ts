@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { QuizController } from './quiz.controller';
-import { QuizService } from './quiz.service';
+import { QuizController } from './controllers/quiz.controller';
+import { QuizService } from './services/quiz.service';
 
 describe('QuizController', () => {
   let controller: QuizController;

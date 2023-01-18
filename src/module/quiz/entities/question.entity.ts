@@ -1,4 +1,4 @@
-import { Options } from 'src/module/options/entities/option.entity';
+import { Options } from 'src/module/quiz/entities/option.entity';
 import { Quiz } from 'src/module/quiz/entities/quiz.entity';
 import {
   BaseEntity,

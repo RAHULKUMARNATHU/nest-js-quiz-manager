@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Quiz } from '../quiz/entities/quiz.entity';
-import { CreateQuestionDto } from './dto/create-question.dto';
-import { UpdateQuestionDto } from './dto/update-question.dto';
-import { Question } from './entities/question.entity';
+import { Quiz } from '../entities/quiz.entity';
+import { CreateQuestionDto } from '../dto/create-question.dto';
+import { Question } from '../entities/question.entity';
 
 @Injectable()
 export class QuestionsService {
@@ -31,12 +30,15 @@ export class QuestionsService {
   }
 
   async findQuestionById(id: number) {
-   return await this.questionRepo.findOne({where :{id} , relations:['quiz' , 'options']} )
+    return await this.questionRepo.findOne({
+      where: { id },
+      relations: ['quiz', 'options'],
+    });
   }
 
-  update(id: number, updateQuestionDto: UpdateQuestionDto) {
-    return `This action updates a #${id} question`;
-  }
+  // update(id: number, updateQuestionDto: UpdateQuestionDto) {
+  //   return `This action updates a #${id} question`;
+  // }
 
   remove(id: number) {
     return `This action removes a #${id} question`;

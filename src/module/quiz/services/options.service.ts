@@ -1,11 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateQuestionDto } from '../questions/dto/create-question.dto';
-import { Question } from '../questions/entities/question.entity';
-import { CreateOptionDto } from './dto/create-option.dto';
-import { UpdateOptionDto } from './dto/update-option.dto';
-import { Options } from './entities/option.entity';
+import { CreateQuestionDto } from '../dto/create-question.dto';
+import { Question } from '../entities/question.entity';
+import { CreateOptionDto } from '../dto/create-option.dto';
+import { Options } from '../entities/option.entity';
 
 @Injectable()
 export class OptionsService {
@@ -33,9 +32,9 @@ export class OptionsService {
     return `This action returns a #${id} option`;
   }
 
-  update(id: number, updateOptionDto: UpdateOptionDto) {
-    return `This action updates a #${id} option`;
-  }
+  // update(id: number, updateOptionDto: UpdateOptionDto) {
+  //   return `This action updates a #${id} option`;
+  // }
 
   remove(id: number) {
     return `This action removes a #${id} option`;

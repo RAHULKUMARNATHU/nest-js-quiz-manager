@@ -11,10 +11,9 @@ import {
   forwardRef,
   Inject,
 } from '@nestjs/common';
-import { QuestionsService } from './questions.service';
-import { CreateQuestionDto } from './dto/create-question.dto';
-import { UpdateQuestionDto } from './dto/update-question.dto';
-import { QuizService } from '../quiz/quiz.service';
+import { QuestionsService } from '../services/questions.service';
+import { CreateQuestionDto } from '../dto/create-question.dto';
+import { QuizService } from '../services/quiz.service';
 
 @Controller('questions')
 export class QuestionsController {
@@ -47,13 +46,13 @@ export class QuestionsController {
   //   return this.questionsService.findOne(+id);
   // }
 
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateQuestionDto: UpdateQuestionDto,
-  ) {
-    return this.questionsService.update(+id, updateQuestionDto);
-  }
+  // @Patch(':id')
+  // update(
+  //   @Param('id') id: string,
+  //   @Body() updateQuestionDto: UpdateQuestionDto,
+  // ) {
+  //   return this.questionsService.update(+id, updateQuestionDto);
+  // }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
