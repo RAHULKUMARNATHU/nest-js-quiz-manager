@@ -14,13 +14,14 @@ export class QuizService {
     return this.QuizRepo.save(createQuizDto);
   }
 
-  async getAllQuiz() :Promise<[Quiz[], number]>{
+  async getAllQuiz() :Promise<Quiz[]>{
     return await this.QuizRepo.createQueryBuilder('q')
       // .leftJoinAndSelect(Question, 'qt', 'q.id = qt.quizId')
       .leftJoinAndSelect('q.questions', 'qt')
-      .leftJoinAndSelect('qt.options', 'o')
-      .take(1)
-      .getManyAndCount();
+      // .leftJoinAndSelect('qt.options', 'o')
+      // .take(1)
+      // .getManyAndCount();
+      .getMany();
       
   }
 

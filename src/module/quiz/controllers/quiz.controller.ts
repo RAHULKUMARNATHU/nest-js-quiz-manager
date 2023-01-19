@@ -25,7 +25,7 @@ export class QuizController {
   }
 
   @Get('/getAll')
-  async getAllQuiz() :Promise<[Quiz[] , number]> {
+  async getAllQuiz() :Promise<Quiz[] > {
     return await this.quizService.getAllQuiz();
   }
 
