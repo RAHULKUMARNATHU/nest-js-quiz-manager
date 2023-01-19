@@ -12,6 +12,7 @@ import {
 import { QuizService } from '../services/quiz.service';
 import { CreateQuizDto } from '../dto/create-quiz.dto';
 import { UpdateQuizDto } from '../dto/update-quiz.dto';
+import { Quiz } from '../entities/quiz.entity';
 
 @Controller('quiz')
 export class QuizController {
@@ -23,14 +24,14 @@ export class QuizController {
     return await this.quizService.create(createQuizDto);
   }
 
-  @Get()
-  findAll() {
-    return this.quizService.findAll();
+  @Get('/getAll')
+  async getAllQuiz() :Promise<[Quiz[] , number]> {
+    return await this.quizService.getAllQuiz();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.quizService.findOne(+id);
+    return this.quizService.getQuizById(+id);
   }
 
   @Patch(':id')

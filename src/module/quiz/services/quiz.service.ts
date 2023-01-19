@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Options } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateQuizDto } from '../dto/create-quiz.dto';
 import { UpdateQuizDto } from '../dto/update-quiz.dto';
+import { Question } from '../entities/question.entity';
 import { Quiz } from '../entities/quiz.entity';
 
 @Injectable()
@@ -11,21 +12,22 @@ export class QuizService {
 
   create(createQuizDto: CreateQuizDto) {
     return this.QuizRepo.save(createQuizDto);
-    // return 'This action adds a new quiz';
   }
 
-  // getQuizById(id: number) {
-  //   //  return await this.QuizRepo.findOne({where:{id}});
-  //   console.log('here');
-  // }
-  findAll() {
-    return `This action returns all quiz`;
+  async getAllQuiz() :Promise<[Quiz[], number]>{
+    return await this.QuizRepo.createQueryBuilder('q')
+      // .leftJoinAndSelect(Question, 'qt', 'q.id = qt.quizId')
+      .leftJoinAndSelect('q.questions', 'qt')
+      .leftJoinAndSelect('qt.options', 'o')
+      .take(1)
+      .getManyAndCount();
+      
   }
 
-  async findOne(id: number) {
+  async getQuizById(id: number) {
     const quiz = await this.QuizRepo.findOne({
       where: { id },
-      relations: ['questions'],
+      relations: ['questions' ,'questions.options'],
     });
     return quiz;
   }

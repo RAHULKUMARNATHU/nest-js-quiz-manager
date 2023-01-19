@@ -29,7 +29,7 @@ export class QuestionsController {
   async create(@Body() createQuestionDto: CreateQuestionDto) {
     console.log(createQuestionDto.quizId);
 
-    const quiz = await this.quizService.findOne(createQuestionDto.quizId);
+    const quiz = await this.quizService.getQuizById(createQuestionDto.quizId);
     // console.log(quiz);
     if (quiz) {
       return await this.questionsService.create(createQuestionDto, quiz);
