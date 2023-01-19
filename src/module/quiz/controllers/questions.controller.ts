@@ -27,8 +27,6 @@ export class QuestionsController {
   @UsePipes(ValidationPipe)
   @Post('/create-question')
   async create(@Body() createQuestionDto: CreateQuestionDto) {
-    console.log(createQuestionDto.quizId);
-
     const quiz = await this.quizService.getQuizById(createQuestionDto.quizId);
     // console.log(quiz);
     if (quiz) {
