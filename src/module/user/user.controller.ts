@@ -3,6 +3,7 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import { SETTINGS } from 'src/app.utils';
 
 @Controller('user')
 export class UserController {
@@ -10,7 +11,7 @@ export class UserController {
 
   @UsePipes(ValidationPipe)
   @Post('/register')
-  create(@Body() createUserDto: CreateUserDto): Promise<User> {
+  create(@Body(SETTINGS.VALIDATION_PIPE) createUserDto: CreateUserDto): Promise<User> {
     return this.userService.create(createUserDto);
   }
 
