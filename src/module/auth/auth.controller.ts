@@ -10,8 +10,8 @@ import {
   } from '@nestjs/common';
   import { AuthService } from './auth.service';
   import { LoginDto } from './dto/login.dto';
-  // import { JwtAuthGuard } from 'src/guard/jwt-auth.guard';
 import { localAuthGuard } from 'src/module/auth/local-auth.guard';
+import { JwtAuthGuard } from './jwt-auth.guard';
   
 
   @Controller('auth')
@@ -22,12 +22,12 @@ import { localAuthGuard } from 'src/module/auth/local-auth.guard';
    @UseGuards(localAuthGuard)
     @Post('login')
     async login(@Request() req , @Body() loginDto: LoginDto): Promise<any> {
-      // return this.authService.generateToken(loginDto);
-    return req.user;
+      return this.authService.generateToken(req.user);
+    // return req.user;
     }
   
 
-    // @UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard)
     @Get('user')
     async user(@Request() req): Promise<any> {
       return req.user;
