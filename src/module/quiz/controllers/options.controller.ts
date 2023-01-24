@@ -12,7 +12,9 @@ import {
 import { OptionsService } from '../services/options.service';
 import { CreateOptionDto } from '../dto/create-option.dto';
 import { QuestionsService } from '../services/questions.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Options')
 @Controller('question/options')
 export class OptionsController {
   constructor(
