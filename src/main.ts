@@ -4,12 +4,13 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
 
   const config = new DocumentBuilder()
-    .setTitle('QUIZ MANAGER API')
-    .setDescription('Quiz Api Description ')
+    .addBearerAuth()
+    .setTitle('Quiz manager API')
+    .setDescription('Quiz manager API description')
     .setVersion('1.0')
-    .addTag('Quiz')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/', app, document);

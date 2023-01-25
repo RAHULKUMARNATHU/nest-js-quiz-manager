@@ -8,14 +8,22 @@ import {
   Delete,
   UsePipes,
   ValidationPipe,
+  Query,
+  DefaultValuePipe,
+  ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { QuizService } from '../services/quiz.service';
 import { CreateQuizDto } from '../dto/create-quiz.dto';
 import { UpdateQuizDto } from '../dto/update-quiz.dto';
 import { Quiz } from '../entities/quiz.entity';
-import { ApiTags } from '@nestjs/swagger';
-
+import {  ApiSecurity, ApiTags } from '@nestjs/swagger';
+import { IPaginationOptions, Pagination } from 'nestjs-typeorm-paginate';
+import { ApiPaginatedResponse } from 'src/common/decorator/api-pagination.response';
+import { JwtAuthGuard } from 'src/module/auth/jwt-auth.guard';
 @ApiTags('Quiz')
+@ApiSecurity('bearer')
+@UseGuards(JwtAuthGuard)
 @Controller('quiz')
 export class QuizController {
   constructor(private readonly quizService: QuizService) {}
@@ -26,9 +34,19 @@ export class QuizController {
     return await this.quizService.create(createQuizDto);
   }
 
+  
+  @ApiPaginatedResponse({ model: Quiz, description: 'List of quizzes' })
   @Get('/getAll')
-  async getAllQuiz() :Promise<Quiz[] > {
-    return await this.quizService.getAllQuiz();
+  async getAllQuiz(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
+    @Query('limit', new DefaultValuePipe(1), ParseIntPipe) limit: number = 1,
+  ): Promise<Pagination<Quiz>> {
+    const options: IPaginationOptions = {
+      limit,
+      page,
+    };
+
+    return await this.quizService.paginate(options);
   }
 
   @Get(':id')
