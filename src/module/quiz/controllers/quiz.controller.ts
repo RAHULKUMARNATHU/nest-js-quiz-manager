@@ -21,6 +21,9 @@ import {  ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { IPaginationOptions, Pagination } from 'nestjs-typeorm-paginate';
 import { ApiPaginatedResponse } from 'src/common/decorator/api-pagination.response';
 import { JwtAuthGuard } from 'src/module/auth/jwt-auth.guard';
+
+
+import { AdminRoleGuard } from 'src/module/auth/admin-role.guard';
 @ApiTags('Quiz')
 @ApiSecurity('bearer')
 @UseGuards(JwtAuthGuard)
@@ -28,6 +31,7 @@ import { JwtAuthGuard } from 'src/module/auth/jwt-auth.guard';
 export class QuizController {
   constructor(private readonly quizService: QuizService) {}
 
+  @UseGuards(AdminRoleGuard)
   @UsePipes(ValidationPipe)
   @Post('/create-quiz')
   async create(@Body() createQuizDto: CreateQuizDto) {

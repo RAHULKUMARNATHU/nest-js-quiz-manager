@@ -23,6 +23,9 @@ export class UserService {
    return await User.findOneBy({email})
   }
 
+  async getUserById(id: number) {
+    return await User.findOneBy({id})
+   }
   update(id: number, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;
   }

@@ -14,7 +14,7 @@ import { jwtConfig } from 'src/config/jwt.config';
   JwtModule.registerAsync(jwtConfig)
   ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy,JwtStrategy, UserService],
+  providers: [AuthService, LocalStrategy,JwtStrategy, UserService , ],
   exports: [AuthService],
 })
 export class AuthModule {}
