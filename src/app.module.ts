@@ -1,4 +1,9 @@
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
@@ -13,7 +18,7 @@ import { UserModule } from './module/user/user.module';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
-      useClass:DatabaseConnectionService
+      useClass: DatabaseConnectionService,
     }),
     QuizModule,
     UserModule,
@@ -22,9 +27,10 @@ import { UserModule } from './module/user/user.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule implements NestModule{
-  configure(consumer: MiddlewareConsumer) {
-      consumer.apply(ApiTokenCheckMiddleware)
-      .forRoutes({path :'*' ,method:RequestMethod.ALL})
-  }
-}
+export class AppModule {}
+// export class AppModule implements NestModule{
+//   configure(consumer: MiddlewareConsumer) {
+//       consumer.apply(ApiTokenCheckMiddleware)
+//       .forRoutes({path :'*' ,method:RequestMethod.ALL})
+//   }
+// }
