@@ -11,11 +11,13 @@ import { QuestionsService } from './services/questions.service';
 import { OptionsService } from './services/options.service';
 import { UserModule } from '../user/user.module';
 import { UserService } from '../user/user.service';
+import { ResponseController } from './controllers/response.controller';
+import { ResponseService } from './services/response.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Quiz , Question , Options]) ,UserModule,],
-  controllers: [QuizController , QuestionsController , OptionsController],
-  providers: [QuizService , QuestionsService , OptionsService , UserService],
+  controllers: [QuizController , QuestionsController , OptionsController , ResponseController],
+  providers: [QuizService , QuestionsService , OptionsService , UserService , ResponseService],
 
 })
 export class QuizModule {}

@@ -1,15 +1,18 @@
 import { Injectable, Options } from '@nestjs/common';
+import { OnEvent } from '@nestjs/event-emitter';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
   IPaginationOptions,
   paginate,
   Pagination,
 } from 'nestjs-typeorm-paginate';
+import { events } from 'src/common/constants/event.constant';
 import { Repository } from 'typeorm';
 import { CreateQuizDto } from '../dto/create-quiz.dto';
 import { UpdateQuizDto } from '../dto/update-quiz.dto';
 import { Question } from '../entities/question.entity';
 import { Quiz } from '../entities/quiz.entity';
+import { ResponseAddEvent } from '../events/response-add.events';
 
 @Injectable()
 export class QuizService {
@@ -49,5 +52,11 @@ export class QuizService {
 
   remove(id: number) {
     return `This action removes a #${id} quiz`;
+  }
+
+
+  @OnEvent(events.RESPONSE_SUBMITTED)
+  checkQuizCompleted(payload : ResponseAddEvent) {
+    console.log('checkQuizCompleted', payload);
   }
 }

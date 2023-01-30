@@ -5,6 +5,7 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -20,9 +21,11 @@ import { UserModule } from './module/user/user.module';
     TypeOrmModule.forRootAsync({
       useClass: DatabaseConnectionService,
     }),
+    EventEmitterModule.forRoot(),
     QuizModule,
     UserModule,
     AuthModule,
+
   ],
   controllers: [AppController],
   providers: [AppService],
