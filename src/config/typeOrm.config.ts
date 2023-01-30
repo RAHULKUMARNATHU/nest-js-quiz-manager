@@ -43,6 +43,6 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   extra: {
     charset: 'utf8mb4_unicode_ci',
   },
-  synchronize: false,
+  synchronize: true,
   logging: true,
 };
