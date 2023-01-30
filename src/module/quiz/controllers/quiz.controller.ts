@@ -24,6 +24,8 @@ import { JwtAuthGuard } from 'src/module/auth/jwt-auth.guard';
 
 
 import { AdminRoleGuard } from 'src/module/auth/admin-role.guard';
+import { RolesGuard } from 'src/module/auth/roles.guard';
+import { Roles } from 'src/module/auth/roles.decorator';
 @ApiTags('Quiz')
 @ApiSecurity('bearer')
 @UseGuards(JwtAuthGuard)
@@ -31,7 +33,8 @@ import { AdminRoleGuard } from 'src/module/auth/admin-role.guard';
 export class QuizController {
   constructor(private readonly quizService: QuizService) {}
 
-  @UseGuards(AdminRoleGuard)
+  @UseGuards(RolesGuard)
+  @Roles('admin')
   @UsePipes(ValidationPipe)
   @Post('/create-quiz')
   async create(@Body() createQuizDto: CreateQuizDto) {
