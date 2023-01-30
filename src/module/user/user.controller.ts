@@ -14,7 +14,11 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { SETTINGS } from 'src/app.utils';
-import { ApiBadGatewayResponse, ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBadGatewayResponse,
+  ApiCreatedResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
 @ApiTags('Users')
 @Controller('user')
@@ -26,7 +30,7 @@ export class UserController {
   })
   @ApiBadGatewayResponse({
     description: 'user can not be created',
-    type:User,
+    type: User,
   })
   @UsePipes(ValidationPipe)
   @Post('/register')

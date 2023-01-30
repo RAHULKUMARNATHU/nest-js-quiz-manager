@@ -21,7 +21,7 @@ export class DatabaseConnectionService implements TypeOrmOptionsFactory {
       extra: {
         charset: 'utf8mb4_unicode_ci',
       },
-      synchronize: false,
+      synchronize: true,
       dropSchema: false,
       logging: true,
     };
