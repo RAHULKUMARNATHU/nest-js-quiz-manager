@@ -33,7 +33,9 @@ export class User extends BaseEntity {
   password: string;
 
   @ApiProperty({description:'Role of user'})
-  @Column()
+  @Column({
+    default:'member'
+  })
   role:string
 
   @ApiProperty({description:'when user was created'})
