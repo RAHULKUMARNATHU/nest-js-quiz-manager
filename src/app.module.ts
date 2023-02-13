@@ -9,23 +9,19 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ApiTokenCheckMiddleware } from './common/middleware/api-token-check.middleware';
-import { DatabaseConnectionService } from './config/typeOrm.config';
 import { AuthModule } from './module/auth/auth.module';
 import { QuizModule } from './module/quiz/quiz.module';
 import { UserModule } from './module/user/user.module';
+import ormconfig from './ormconfig'
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    TypeOrmModule.forRootAsync({
-      useClass: DatabaseConnectionService,
-    }),
+    TypeOrmModule.forRoot(ormconfig),
     EventEmitterModule.forRoot(),
     QuizModule,
     UserModule,
     AuthModule,
-
   ],
   controllers: [AppController],
   providers: [AppService],
